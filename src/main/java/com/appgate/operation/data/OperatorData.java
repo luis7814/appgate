@@ -20,7 +20,7 @@ public class OperatorData implements Serializable {
     private String idSession;
     private Integer idValue;
     private String operator;
-    private Integer result;
+    private Float result;
     private Date date;
 
 }
