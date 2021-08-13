@@ -11,8 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -37,10 +36,10 @@ public class OperatorServiceTest {
 
     @Test
     public void testRegisterResult() throws Exception {
-        when(valueRepository.findByIdSession(anyString())).thenReturn(Arrays.<ValueData>asList(new ValueData()));
+        when(valueRepository.findByIdSession(anyString())).thenReturn(valueDatas());
 
-        OperatorData result = operatorService.registerResult(new OperatorData());
-        Assert.assertEquals(new OperatorData(), result);
+        OperatorData result = operatorService.registerResult(operatorData());
+        Assert.assertEquals(operatorData().getIdSession(), result.getIdSession());
     }
 
     @Test
@@ -51,9 +50,36 @@ public class OperatorServiceTest {
 
     @Test
     public void testFindByIdSession() throws Exception {
-        when(operatorRepository.findByIdSession(anyString())).thenReturn(Arrays.<OperatorData>asList(new OperatorData()));
+        when(operatorRepository.findByIdSession(anyString())).thenReturn(operatorDatas());
 
         List<OperatorData> result = operatorService.findByIdSession("idSession");
-        Assert.assertEquals(Arrays.<OperatorData>asList(new OperatorData()), result);
+        Assert.assertEquals(operatorDatas(), result);
+    }
+
+    public List<ValueData> valueDatas() {
+
+        List<ValueData> valueDatas = new ArrayList<>();
+        ValueData valueData = new ValueData();
+        valueData.setValue(1);
+        valueData.setIdSession("123-456");
+        valueDatas.add(valueData);
+
+        return valueDatas;
+    }
+
+    public OperatorData operatorData() {
+        OperatorData operatorData = new OperatorData();
+        operatorData.setOperator("SUMA");
+        operatorData.setIdSession("123-456");
+
+        return operatorData;
+    }
+
+    public List<OperatorData> operatorDatas() {
+
+        List<OperatorData> operatorDatas = new ArrayList<>();
+        operatorDatas.add(operatorData());
+
+        return operatorDatas;
     }
 }

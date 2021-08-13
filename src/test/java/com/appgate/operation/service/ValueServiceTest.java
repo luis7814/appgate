@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -54,10 +55,10 @@ public class ValueServiceTest {
 
     @Test
     public void testFindById() throws Exception {
-        when(valueRepository.findByIdSession(anyString())).thenReturn(Arrays.<ValueData>asList(new ValueData()));
+        when(valueRepository.findByIdSession(anyString())).thenReturn(valueDatas());
 
         List<ValueData> result = valueService.findById("idSession");
-        Assert.assertEquals(Arrays.<ValueData>asList(new ValueData()), result);
+        Assert.assertEquals(valueDatas(), result);
     }
 
     private SessionData sessionData() {
@@ -74,6 +75,12 @@ public class ValueServiceTest {
         valueData.setIdSession("123-456");
 
         return valueData;
+    }
+
+    private List<ValueData> valueDatas() {
+        List<ValueData> valueDatas = new ArrayList<>();
+        valueDatas.add(valueData());
+        return valueDatas;
     }
 
     private OperatorData operatorData() {
